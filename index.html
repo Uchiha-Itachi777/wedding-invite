@@ -116,7 +116,20 @@
         }
     </style>
 </head>
-<body class="bg-surface selection:bg-primary/10">
+<body class="bg-surface selection:bg-primary/10 overflow-hidden" id="pageBody">
+<!-- Entrance Screen -->
+<div class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-surface px-8 text-center transition-opacity duration-700" id="entranceScreen">
+<div class="absolute inset-0 pointer-events-none opacity-20">
+<img alt="" class="absolute -top-20 -left-20 w-[700px]" src="https://lh3.googleusercontent.com/aida/AP1WRLvOQlTWPw7MZI1OkYJhWBDdnzz7BCSI2Vrzd6zmACwlj30s7m82_TdL9-bC60ikhIKzsuTNxJFBtLZE1HkkApEI9-Ev4QVRLP1MxOqUHjRWx-6FUTcB8KdChkgT-ppUJ_whYQPJTux3iWJCm2I7l7Tz9t3L_YhKlrrqS8Y1fwdDzgEbc9qTsSCG9YZC2Hyl50reJUh1OoxW_ff1mRRYNRNjeBIol0rHXmxTvxhyYiTKK-I6v3Afrkhy6e4"/>
+</div>
+<p class="font-accent text-[11px] tracking-[0.5em] uppercase text-secondary mb-8 relative z-10">Сиз чакырылдыныз</p>
+<h1 class="font-calligraphy text-5xl md:text-6xl text-primary leading-tight relative z-10">Эрлан &amp; Зинаида</h1>
+<div class="gold-divider !w-20 my-8 relative z-10"></div>
+<button class="relative z-10 px-12 py-5 bg-primary text-white rounded-full font-accent text-xs tracking-widest uppercase transition-all hover:tracking-[0.3em] active:scale-95 shadow-[0_10px_25px_-5px_rgba(107,15,26,0.4)]" id="enterButton">
+            Чакырууну ачуу
+        </button>
+<span class="material-symbols-outlined text-3xl text-primary/40 mt-10 relative z-10 animate-bounce">favorite</span>
+</div>
 <!-- Background Music Element -->
 <audio id="bgMusic" loop="">
 <source src="music.mp3" type="audio/mpeg"/>
@@ -387,7 +400,6 @@
     const bgMusic = document.getElementById('bgMusic');
     const musicToggle = document.getElementById('musicToggle');
     const musicIcon = document.getElementById('musicIcon');
-    let hasInteracted = false;
 
     const togglePlay = () => {
         if (bgMusic.paused) {
@@ -403,40 +415,30 @@
 
     musicToggle.addEventListener('click', (e) => {
         e.preventDefault();
-        hasInteracted = true;
         togglePlay();
     });
 
-    // Start music on first interaction (if not already started)
-    const handleFirstInteraction = () => {
-        if (!hasInteracted) {
-            bgMusic.play().then(() => {
-                hasInteracted = true;
-                musicIcon.innerText = 'music_off';
-                musicToggle.classList.add('animate-spin-slow');
-                cleanupInteractions();
-            }).catch(e => console.log('Autoplay blocked', e));
-        }
-    };
+    // Entrance screen: tap opens the invitation AND starts the music
+    const entranceScreen = document.getElementById('entranceScreen');
+    const enterButton = document.getElementById('enterButton');
+    const pageBody = document.getElementById('pageBody');
 
-    const cleanupInteractions = () => {
-        document.removeEventListener('click', handleFirstInteraction);
-        document.removeEventListener('touchstart', handleFirstInteraction);
-        document.removeEventListener('scroll', handleFirstInteraction);
-    };
+    enterButton.addEventListener('click', () => {
+        bgMusic.play().then(() => {
+            musicIcon.innerText = 'music_off';
+            musicToggle.classList.add('animate-spin-slow');
+        }).catch(e => console.log('Autoplay blocked', e));
 
-    document.addEventListener('click', handleFirstInteraction);
-    document.addEventListener('touchstart', handleFirstInteraction);
-    document.addEventListener('scroll', handleFirstInteraction, { once: true });
+        entranceScreen.style.opacity = '0';
+        pageBody.classList.remove('overflow-hidden');
+        setTimeout(() => {
+            entranceScreen.style.display = 'none';
+        }, 700);
+    });
 
     // Special case for RSVP form submit
     document.getElementById('rsvpForm').onsubmit = function(event) {
         event.preventDefault();
-        if (bgMusic.paused && !hasInteracted) {
-            bgMusic.play();
-            musicIcon.innerText = 'music_off';
-            musicToggle.classList.add('animate-spin-slow');
-        }
         alert('Ыракмат! Сиздин катышууңуз катталды.');
     };
 </script>
