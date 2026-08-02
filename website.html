@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="ky"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Эрлан &amp; Зинаида • Үйлөнүү тойго чакыруу</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Montserrat:wght@300;400;500;600&amp;family=Great+Vibes&amp;family=Cinzel:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#6b0f1a",
+                        "surface": "#f9f0e0",
+                        "secondary": "#a67d2b",
+                        "on-surface": "#1e1b18",
+                        "on-surface-variant": "#564241",
+                        "outline-variant": "#ddc0bf"
+                    },
+                    "fontFamily": {
+                        "display": ["Playfair Display", "serif"],
+                        "calligraphy": ["Great Vibes", "cursive"],
+                        "accent": ["Cinzel", "serif"],
+                        "body": ["Montserrat", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f0e0;
+            color: #1e1b18;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-italic-display {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -30px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        .animate-drift {
+            animation: drift 25s ease-in-out infinite;
+        }
+
+        .timeline-track {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #a67d2b 15%, #a67d2b 85%, transparent);
+            transform: translateX(-50%);
+        }
+
+        .multiply-blend {
+            mix-blend-mode: multiply;
+        }
+
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #a67d2b, transparent);
+            width: 60%;
+            margin: 2rem auto;
+        }
+
+        #scrolling-heart {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .heart-icon {
+            font-variation-settings: 'FILL' 1;
+            color: #6b0f1a;
+        }
+
+        .corner-floral {
+            position: absolute;
+            width: 180px;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.8;
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 8s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary/10">
+<!-- Background Music Element -->
+<audio id="bgMusic" loop="">
+<source src="music.mp3" type="audio/mpeg"/>
+</audio>
+<!-- Music Toggle Button -->
+<button class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white/80 backdrop-blur-md border border-secondary/30 rounded-full shadow-lg flex items-center justify-center text-primary transition-all active:scale-90" id="musicToggle">
+<span class="material-symbols-outlined text-2xl" id="musicIcon">music_note</span>
+</button>
+<!-- Luxury Drifting Background -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-25">
+<img alt="" class="absolute -top-20 -left-20 w-[1000px] animate-drift" src="https://lh3.googleusercontent.com/aida/AP1WRLvOQlTWPw7MZI1OkYJhWBDdnzz7BCSI2Vrzd6zmACwlj30s7m82_TdL9-bC60ikhIKzsuTNxJFBtLZE1HkkApEI9-Ev4QVRLP1MxOqUHjRWx-6FUTcB8KdChkgT-ppUJ_whYQPJTux3iWJCm2I7l7Tz9t3L_YhKlrrqS8Y1fwdDzgEbc9qTsSCG9YZC2Hyl50reJUh1OoxW_ff1mRRYNRNjeBIol0rHXmxTvxhyYiTKK-I6v3Afrkhy6e4"/>
+<img alt="" class="absolute bottom-10 -right-20 w-[1100px] animate-drift" src="https://lh3.googleusercontent.com/aida/AP1WRLvOQlTWPw7MZI1OkYJhWBDdnzz7BCSI2Vrzd6zmACwlj30s7m82_TdL9-bC60ikhIKzsuTNxJFBtLZE1HkkApEI9-Ev4QVRLP1MxOqUHjRWx-6FUTcB8KdChkgT-ppUJ_whYQPJTux3iWJCm2I7l7Tz9t3L_YhKlrrqS8Y1fwdDzgEbc9qTsSCG9YZC2Hyl50reJUh1OoxW_ff1mRRYNRNjeBIol0rHXmxTvxhyYiTKK-I6v3Afrkhy6e4" style="animation-delay: -7s; transform: scaleX(-1);"/>
+</div>
+<!-- Scrolling Heart -->
+<div id="scrolling-heart">
+<span class="material-symbols-outlined text-3xl heart-icon">favorite</span>
+</div>
+<main class="relative z-10 max-w-screen-sm mx-auto shadow-2xl bg-surface/80 backdrop-blur-[2px]">
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col items-center justify-center pt-16 pb-12 px-6 text-center relative overflow-hidden" id="home">
+<img alt="Peonies" class="corner-floral top-0 left-0 -rotate-90 opacity-60" src="https://lh3.googleusercontent.com/aida/AP1WRLs0xFrzkRRJ4dgR3MNCl2-cR0_8LE6S5rA1qdBlG9IJnR5MyQ6EYg9u7lBRHAt96ip74UpZPxtc_L6OGO1xwBvRhePy3DNVCPY5sIRgFAc8YMEK6q-aecG1dNM7jozjkRD1Qt1HaEJJvpr10A8UpYszd2AP5m8uvBZWe1I984NSPsJAu7ByKsGlstCIoeBB6d2qwiLkFRZ0lR6w-HZOJ3ShHmJO5dST9CY894IWxgWJjtAykqTqfeQZURY"/>
+<img alt="Peonies" class="corner-floral top-0 right-0 rotate-0 opacity-60" src="https://lh3.googleusercontent.com/aida/AP1WRLs0xFrzkRRJ4dgR3MNCl2-cR0_8LE6S5rA1qdBlG9IJnR5MyQ6EYg9u7lBRHAt96ip74UpZPxtc_L6OGO1xwBvRhePy3DNVCPY5sIRgFAc8YMEK6q-aecG1dNM7jozjkRD1Qt1HaEJJvpr10A8UpYszd2AP5m8uvBZWe1I984NSPsJAu7ByKsGlstCIoeBB6d2qwiLkFRZ0lR6w-HZOJ3ShHmJO5dST9CY894IWxgWJjtAykqTqfeQZURY"/>
+<div class="relative w-full aspect-[896/1200] max-h-[80vh] flex items-center justify-center">
+<!-- Floral Arch -->
+<img alt="Floral Arch" class="absolute inset-0 w-full h-full object-contain pointer-events-none z-10" src="https://lh3.googleusercontent.com/aida/AP1WRLv9j-BZvKrKsaujGpjQfCHj5jwNi63NUVFZeNVAPCUMWHTBpnI7xby9hpr4-sBcb7zo4U8CclwyLl6mws1B0-3vE3OTIR1lNmv5Myxi0bJ4HimYdfB-7YJZ_RZWDIMzbNIlqPgMZChyil6MteiPrx37oSu1SXLxZx4ntxyHrBBUa-jEd2A_8BCWTSNAU4j5ACfrrQ5vs_MPlMqk6I6EO7-9KjX05k_Wn-Bn0msmCcgYvzigy8TX8N1dXg8"/>
+<div class="relative z-20 flex flex-col items-center px-8 pt-12">
+<p class="font-accent text-[11px] tracking-[0.5em] uppercase text-secondary mb-6">Wedding Celebration</p>
+<h1 class="font-calligraphy text-6xl md:text-7xl text-primary leading-tight mb-2">Эрлан</h1>
+<span class="font-display text-2xl text-secondary">&amp;</span>
+<h1 class="font-calligraphy text-6xl md:text-7xl text-primary leading-tight mt-2">Зинаида</h1>
+<div class="gold-divider !w-24 my-10"></div>
+<p class="font-accent text-3xl text-primary tracking-widest">29.08.2026</p>
+</div>
+</div>
+<a class="mt-10 px-12 py-5 bg-primary text-white rounded-full font-accent text-xs tracking-widest uppercase transition-all hover:tracking-[0.3em] active:scale-95 shadow-[0_10px_25px_-5px_rgba(107,15,26,0.4)]" href="#rsvp">
+            Катышууну ырастоо
+        </a>
+</section>
+<!-- Formal Invitation Block -->
+<section class="py-32 px-8 text-center relative" id="invitation">
+<div class="reveal max-w-md mx-auto active">
+<div class="mb-10 flex justify-center">
+<img alt="Wax Seal" class="w-28 h-28 object-contain multiply-blend" src="https://lh3.googleusercontent.com/aida/AP1WRLuypqrobr80NXsBNH5xN9cjpKEO2wMAfYMMhA_-BxpQPZORQlrJPROa-zrDogD9izVYW8PEba306x-7QVgYO9e_0j5DQAdBVZVkTIOqDtAxMXMcoTPIsqVcdLS-fVDcte9zwBo26kgKFDQA4xkWeyqD0Uo2gt4ZZP9E-ssoY0-kifjiIbOJURGuBAgT_lYRT-nA4SsSm6pN7thUovxfCRbwgHvE47zody7rKj9W5XZ_QehKZzxqQJA01Vc"/>
+</div>
+<h3 class="font-calligraphy text-5xl text-primary mb-10">Урматтуу биздин сыйлуу конокторубуз!</h3>
+<div class="space-y-3">
+<p class="font-italic-display text-lg text-on-surface-variant leading-relaxed">
+                    Жүрөгүбүздө чоң кубаныч сезими менен, сиздерди
+                </p>
+<p class="font-calligraphy text-4xl md:text-5xl text-primary py-2">
+                    Эрлан &amp; Зинаиданын
+                </p>
+<p class="font-italic-display text-lg text-on-surface-variant leading-relaxed">
+                    үйлөнүү үлпөт тоюна арналган салтанатабызга келип, ак дасторкон үстүндө даам сызып, батаңыздарды берип, кадырлуу коногубуз болуп кетүүгө чакырабыз!
+                </p>
+</div>
+<div class="mt-16 flex justify-center">
+<img alt="Floral divider" class="w-48 opacity-40" src="https://lh3.googleusercontent.com/aida/AP1WRLs0xFrzkRRJ4dgR3MNCl2-cR0_8LE6S5rA1qdBlG9IJnR5MyQ6EYg9u7lBRHAt96ip74UpZPxtc_L6OGO1xwBvRhePy3DNVCPY5sIRgFAc8YMEK6q-aecG1dNM7jozjkRD1Qt1HaEJJvpr10A8UpYszd2AP5m8uvBZWe1I984NSPsJAu7ByKsGlstCIoeBB6d2qwiLkFRZ0lR6w-HZOJ3ShHmJO5dST9CY894IWxgWJjtAykqTqfeQZURY"/>
+</div>
+</div>
+</section>
+<!-- Countdown -->
+<section class="py-24 px-6 relative overflow-hidden">
+<div class="reveal text-center active">
+<p class="font-accent text-[12px] tracking-[0.3em] uppercase text-secondary mb-12">Той башталганга чейин:</p>
+<div class="grid grid-cols-4 gap-4 text-primary" id="countdown">
+<div class="bg-white/50 backdrop-blur-md rounded-3xl py-6 border border-secondary/20 shadow-sm">
+<span class="block font-display text-4xl mb-1" id="days">00</span>
+<span class="font-accent text-[10px] uppercase tracking-widest text-secondary">Күн</span>
+</div>
+<div class="bg-white/50 backdrop-blur-md rounded-3xl py-6 border border-secondary/20 shadow-sm">
+<span class="block font-display text-4xl mb-1" id="hours">00</span>
+<span class="font-accent text-[10px] uppercase tracking-widest text-secondary">Саат</span>
+</div>
+<div class="bg-white/50 backdrop-blur-md rounded-3xl py-6 border border-secondary/20 shadow-sm">
+<span class="block font-display text-4xl mb-1" id="minutes">00</span>
+<span class="font-accent text-[10px] uppercase tracking-widest text-secondary">Мүнөт</span>
+</div>
+<div class="bg-white/50 backdrop-blur-md rounded-3xl py-6 border border-secondary/20 shadow-sm">
+<span class="block font-display text-4xl mb-1" id="seconds">00</span>
+<span class="font-accent text-[10px] uppercase tracking-widest text-secondary">Секунд</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Animated Timeline -->
+<section class="py-32 px-6 relative" id="timeline">
+<img alt="Peonies" class="corner-floral bottom-0 left-0 rotate-0 opacity-40" src="https://lh3.googleusercontent.com/aida/AP1WRLs0xFrzkRRJ4dgR3MNCl2-cR0_8LE6S5rA1qdBlG9IJnR5MyQ6EYg9u7lBRHAt96ip74UpZPxtc_L6OGO1xwBvRhePy3DNVCPY5sIRgFAc8YMEK6q-aecG1dNM7jozjkRD1Qt1HaEJJvpr10A8UpYszd2AP5m8uvBZWe1I984NSPsJAu7ByKsGlstCIoeBB6d2qwiLkFRZ0lR6w-HZOJ3ShHmJO5dST9CY894IWxgWJjtAykqTqfeQZURY"/>
+<h3 class="font-calligraphy text-5xl text-primary text-center mb-20">Той программасы</h3>
+<div class="relative">
+<div class="timeline-track"></div>
+<div class="space-y-28">
+<!-- Step 1 -->
+<div class="relative flex items-center justify-between reveal">
+<div class="w-[42%] text-right pr-8">
+<p class="font-accent text-sm text-secondary font-bold mb-1">15:00</p>
+<h4 class="font-display text-xl text-primary italic">Welcome</h4>
+</div>
+<div class="z-10 w-3 h-3 rounded-full bg-secondary border-4 border-surface ring-4 ring-secondary/10"></div>
+<div class="w-[42%] pl-8">
+<p class="font-body text-sm text-on-surface-variant font-medium">Коноктордун чогулушу жана жеңил тамактар</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex items-center justify-between reveal">
+<div class="w-[42%] text-right pr-8">
+<p class="font-body text-sm text-on-surface-variant font-medium">Салтанаттуу нике каттоо аземи</p>
+</div>
+<div class="z-10 w-3 h-3 rounded-full bg-secondary border-4 border-surface ring-4 ring-secondary/10"></div>
+<div class="w-[42%] pl-8">
+<p class="font-accent text-sm text-secondary font-bold mb-1">16:30</p>
+<h4 class="font-display text-xl text-primary italic">Нике каттоо</h4>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex items-center justify-between reveal">
+<div class="w-[42%] text-right pr-8">
+<p class="font-accent text-sm text-secondary font-bold mb-1">18:00</p>
+<h4 class="font-display text-xl text-primary italic">Той башталышы</h4>
+</div>
+<div class="z-10 w-3 h-3 rounded-full bg-secondary border-4 border-surface ring-4 ring-secondary/10"></div>
+<div class="w-[42%] pl-8">
+<p class="font-body text-sm text-on-surface-variant font-medium">Праздниктин банкет бөлүмү</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex items-center justify-between reveal">
+<div class="w-[42%] text-right pr-8">
+<p class="font-body text-sm text-on-surface-variant font-medium">Тойдун аягы жана фейерверк</p>
+</div>
+<div class="z-10 w-3 h-3 rounded-full bg-secondary border-4 border-surface ring-4 ring-secondary/10"></div>
+<div class="w-[42%] pl-8">
+<p class="font-accent text-sm text-secondary font-bold mb-1">21:00</p>
+<h4 class="font-display text-xl text-primary italic">Тойдун аягы</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Venue Section -->
+<section class="py-32 px-6 relative" id="location">
+<div class="reveal max-w-lg mx-auto text-center active">
+<div class="mb-12 overflow-hidden rounded-[40px] shadow-2xl border-8 border-white/50">
+<img alt="River Event Hall" class="w-full h-auto multiply-blend scale-110" src="https://lh3.googleusercontent.com/aida/AP1WRLs9yuiG4mZI6CLik6TyBz_sUfpRV5Nxo6eEzDt0A9OqJUxw4f9LuB35Q5pWplWi3_83Ui4nhzW6-Phc4C0yCKiPKjvSUdXsE9nYAesG_NS63KjV9KPLAwZol_EZa9xLvRgdZ_Xr1tydVPQWre5kHCk12HZZ69XlLrbRuNOhk868Pspr2JnUiMf3_JrqUPpHQ5kSOx5Bvewke80SLBwleYXlh2KYcEwQ7TE9rg6Q7UgKHvCRr3600jdcmdU"/>
+</div>
+<h3 class="font-display text-3xl text-primary mb-3">River Event Hall</h3>
+<p class="font-body text-sm text-on-surface-variant mb-10 opacity-80 tracking-wide">Victory Avenue 37, Бишкек шаары</p>
+<a class="inline-flex items-center gap-3 px-10 py-4 border-2 border-secondary text-secondary rounded-full font-accent text-[11px] uppercase tracking-[0.2em] hover:bg-secondary hover:text-white transition-all shadow-lg" href="https://go.2gis.com/UuMTy" target="_blank">
+<span class="material-symbols-outlined text-base">location_on</span>
+                Картадан көрүү
+            </a>
+</div>
+</section>
+<!-- RSVP Form -->
+<section class="py-32 px-8 bg-primary text-white rounded-t-[60px] relative overflow-hidden" id="rsvp">
+<div class="absolute top-0 right-0 p-8 opacity-20 pointer-events-none">
+<img alt="" class="w-64 -rotate-45" src="https://lh3.googleusercontent.com/aida/AP1WRLs0xFrzkRRJ4dgR3MNCl2-cR0_8LE6S5rA1qdBlG9IJnR5MyQ6EYg9u7lBRHAt96ip74UpZPxtc_L6OGO1xwBvRhePy3DNVCPY5sIRgFAc8YMEK6q-aecG1dNM7jozjkRD1Qt1HaEJJvpr10A8UpYszd2AP5m8uvBZWe1I984NSPsJAu7ByKsGlstCIoeBB6d2qwiLkFRZ0lR6w-HZOJ3ShHmJO5dST9CY894IWxgWJjtAykqTqfeQZURY" style="filter: brightness(0) invert(1);"/>
+</div>
+<div class="reveal max-w-sm mx-auto active">
+<div class="text-center mb-16">
+<h3 class="font-calligraphy text-5xl mb-4">Катышууну ырастоо</h3>
+<div class="w-16 h-px bg-secondary mx-auto mb-4"></div>
+<p class="font-accent text-[11px] uppercase tracking-[0.3em] text-secondary">2026-жылдын 1-августуна чейин</p>
+</div>
+<form class="space-y-10" id="rsvpForm">
+<div class="relative">
+<label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Аты-жөнүңүз</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 transition-colors" placeholder="Мисалы: Айбек Ибраимов" required="" type="text"/>
+</div>
+<div>
+<label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Келе аласызбы?</label>
+<select class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base appearance-none cursor-pointer">
+<option class="text-on-surface">Ооба, келем</option>
+<option class="text-on-surface">Тилекке каршы, бара албайм</option>
+</select>
+</div>
+<div>
+<label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Адамдардын саны</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 transition-colors" min="1" placeholder="1" type="number"/>
+</div>
+<div>
+<label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Каалоо-тилектериңиз</label>
+<textarea class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 resize-none transition-colors" placeholder="Сиздин билдирүүңүз..." rows="3"></textarea>
+</div>
+<button class="w-full py-5 mt-8 bg-secondary text-white rounded-full font-accent text-xs tracking-[0.3em] uppercase font-bold shadow-2xl active:scale-95 transition-all hover:bg-white hover:text-primary" type="submit">
+                    Жөнөтүү
+                </button>
+</form>
+</div>
+</section>
+<!-- Closing Section -->
+<section class="py-40 px-6 text-center relative overflow-hidden" id="goodbye">
+<img alt="Peonies" class="corner-floral top-0 left-0 -rotate-90 opacity-30" src="https://lh3.googleusercontent.com/aida/AP1WRLs0xFrzkRRJ4dgR3MNCl2-cR0_8LE6S5rA1qdBlG9IJnR5MyQ6EYg9u7lBRHAt96ip74UpZPxtc_L6OGO1xwBvRhePy3DNVCPY5sIRgFAc8YMEK6q-aecG1dNM7jozjkRD1Qt1HaEJJvpr10A8UpYszd2AP5m8uvBZWe1I984NSPsJAu7ByKsGlstCIoeBB6d2qwiLkFRZ0lR6w-HZOJ3ShHmJO5dST9CY894IWxgWJjtAykqTqfeQZURY"/>
+<div class="reveal max-w-md mx-auto active">
+<div class="mb-16 relative inline-block">
+<div class="absolute -inset-4 border-2 border-secondary/20 rounded-full animate-pulse"></div>
+<div class="w-72 h-72 mx-auto rounded-full overflow-hidden border-8 border-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative z-10">
+<img alt="Erlan and Zinaida" class="w-full h-full object-cover grayscale-[10%]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnazEbx9UzpWfd_eR2AvaNb5TBRa4h2jmaTPR-jWId1Avl5iny_PP9iOj5bH0yMyYOObJycVrlYbEbUIdZzJnKn9bKkJOyA6mij8R9ZNGbPwYpSnGl7slVQ3WlcbPU1itqRcTBvNO4tH38MkwUlLCC2uuTo8B0HCAq0vXBESFtOIbG2etJEirSZf5_hBNiWaXyfk7NDmr7oV_KwdwDRPny9APgoEaZoaVqgPMB1uY5O3yLodTOQdVOrmY3upbeinJJXw"/>
+</div>
+</div>
+<h3 class="font-calligraphy text-6xl text-primary mb-8">Көрүшкөнчө!</h3>
+<p class="font-italic-display text-xl text-on-surface-variant leading-relaxed px-4">
+                Биздин жашообуздун эң бактылуу күнүндө сиздерди күтөбүз!
+            </p>
+<div class="mt-20">
+<span class="material-symbols-outlined text-4xl text-primary/30 animate-bounce">favorite</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="py-24 text-center border-t border-secondary/10 bg-surface/90 relative z-10">
+<p class="font-calligraphy text-3xl text-primary mb-4">Эрлан &amp; Зинаида</p>
+<p class="font-accent text-[11px] text-secondary tracking-[0.4em] uppercase">29 • August • 2026</p>
+<div class="mt-12 opacity-30">
+<img alt="Floral divider" class="w-32 mx-auto" src="https://lh3.googleusercontent.com/aida/AP1WRLs0xFrzkRRJ4dgR3MNCl2-cR0_8LE6S5rA1qdBlG9IJnR5MyQ6EYg9u7lBRHAt96ip74UpZPxtc_L6OGO1xwBvRhePy3DNVCPY5sIRgFAc8YMEK6q-aecG1dNM7jozjkRD1Qt1HaEJJvpr10A8UpYszd2AP5m8uvBZWe1I984NSPsJAu7ByKsGlstCIoeBB6d2qwiLkFRZ0lR6w-HZOJ3ShHmJO5dST9CY894IWxgWJjtAykqTqfeQZURY"/>
+</div>
+</footer>
+<script>
+    // Intersection Observer for reveals
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Scrolling Heart logic
+    const heart = document.getElementById('scrolling-heart');
+    const timeline = document.getElementById('timeline');
+    
+    window.addEventListener('scroll', () => {
+        const rect = timeline.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        heart.style.opacity = inView ? '1' : '0';
+    });
+
+    // Countdown Timer
+    const weddingDate = new Date('August 29, 2026 15:00:00').getTime();
+    
+    const updateTimer = () => {
+        const now = new Date().getTime();
+        const diff = weddingDate - now;
+
+        if (diff < 0) return;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minsEl = document.getElementById('minutes');
+        const secsEl = document.getElementById('seconds');
+
+        if(daysEl) daysEl.innerText = d.toString().padStart(2, '0');
+        if(hoursEl) hoursEl.innerText = h.toString().padStart(2, '0');
+        if(minsEl) minsEl.innerText = m.toString().padStart(2, '0');
+        if(secsEl) secsEl.innerText = s.toString().padStart(2, '0');
+    };
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // Background Music Logic
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicIcon = document.getElementById('musicIcon');
+    let hasInteracted = false;
+
+    const togglePlay = () => {
+        if (bgMusic.paused) {
+            bgMusic.play().catch(e => console.log('Playback failed:', e));
+            musicIcon.innerText = 'music_off';
+            musicToggle.classList.add('animate-spin-slow');
+        } else {
+            bgMusic.pause();
+            musicIcon.innerText = 'music_note';
+            musicToggle.classList.remove('animate-spin-slow');
+        }
+    };
+
+    musicToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        hasInteracted = true;
+        togglePlay();
+    });
+
+    // Start music on first interaction (if not already started)
+    const handleFirstInteraction = () => {
+        if (!hasInteracted) {
+            bgMusic.play().then(() => {
+                hasInteracted = true;
+                musicIcon.innerText = 'music_off';
+                musicToggle.classList.add('animate-spin-slow');
+                cleanupInteractions();
+            }).catch(e => console.log('Autoplay blocked', e));
+        }
+    };
+
+    const cleanupInteractions = () => {
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('touchstart', handleFirstInteraction);
+        document.removeEventListener('scroll', handleFirstInteraction);
+    };
+
+    document.addEventListener('click', handleFirstInteraction);
+    document.addEventListener('touchstart', handleFirstInteraction);
+    document.addEventListener('scroll', handleFirstInteraction, { once: true });
+
+    // Special case for RSVP form submit
+    document.getElementById('rsvpForm').onsubmit = function(event) {
+        event.preventDefault();
+        if (bgMusic.paused && !hasInteracted) {
+            bgMusic.play();
+            musicIcon.innerText = 'music_off';
+            musicToggle.classList.add('animate-spin-slow');
+        }
+        alert('Ыракмат! Сиздин катышууңуз катталды.');
+    };
+</script>
+</body></html>
