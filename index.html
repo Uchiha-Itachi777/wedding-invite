@@ -4,7 +4,6 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Эрлан &amp; Зинаида • Үйлөнүү тойго чакыруу</title>
-<link rel="icon" type="image/png" href="/favicon.png">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Montserrat:wght@300;400;500;600&amp;family=Great+Vibes&amp;family=Cinzel:wght@400;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -303,8 +302,8 @@
 <div>
 <label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Келе аласызбы?</label>
 <select class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base appearance-none cursor-pointer" name="attending">
-<option class="text-on-surface">Ооба, келем</option>
-<option class="text-on-surface">Тилекке каршы, бара албайм</option>
+<option class="text-on-surface" value="Келе тургандар">Ооба, келем</option>
+<option class="text-on-surface" value="Келбейт">Тилекке каршы, бара албайм</option>
 </select>
 </div>
 <div>
@@ -333,7 +332,7 @@
 </div>
 <h3 class="font-calligraphy text-6xl text-primary mb-8">Көрүшкөнчө!</h3>
 <p class="font-italic-display text-xl text-on-surface-variant leading-relaxed px-4">
-                Балдарыбыздын кубанычтуу күнүнүн бир бөлүгү болуп, алардын кубанычын, күлкүсүн жана бул кеченин жылуулугун биз менен тең бөлүшүңүздөр.
+                Биздин жашообуздун эң бактылуу күнүндө сиздерди күтөбүз!
             </p>
 <div class="mt-20">
 <span class="material-symbols-outlined text-4xl text-primary/30 animate-bounce">favorite</span>
@@ -456,10 +455,11 @@
         })
             .then(response => response.json())
             .then(() => {
-                const waText = `Салам! Мен ${payload.name}.\n` +
-                    `Тойго катышуум: ${payload.attend}\n` +
-                    `Адамдардын саны: ${payload.count || '-'}\n` +
-                    `Каалоо-тилек: ${payload.wish || '-'}`;
+                const waText = `Саламатсызбы! Чакырууга жооп (Эрлан жана Зинаида, 29-август).\n` +
+                    `Аты: ${payload.name}\n` +
+                    `Абалы: ${payload.attend}\n` +
+                    `Коноктордун саны: ${payload.count || '-'}\n` +
+                    `Каалоо: ${payload.wish || '-'}`;
                 const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(waText)}`;
 
                 rsvpForm.reset();
