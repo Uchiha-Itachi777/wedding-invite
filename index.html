@@ -297,22 +297,22 @@
 <form class="space-y-10" id="rsvpForm">
 <div class="relative">
 <label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Аты-жөнүңүз</label>
-<input class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 transition-colors" placeholder="Мисалы: Айбек Ибраимов" required="" type="text"/>
+<input class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 transition-colors" name="name" placeholder="Мисалы: Айбек Ибраимов" required="" type="text"/>
 </div>
 <div>
 <label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Келе аласызбы?</label>
-<select class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base appearance-none cursor-pointer">
+<select class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base appearance-none cursor-pointer" name="attending">
 <option class="text-on-surface">Ооба, келем</option>
 <option class="text-on-surface">Тилекке каршы, бара албайм</option>
 </select>
 </div>
 <div>
 <label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Адамдардын саны</label>
-<input class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 transition-colors" min="1" placeholder="1" type="number"/>
+<input class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 transition-colors" min="1" name="guests" placeholder="1" type="number"/>
 </div>
 <div>
 <label class="block font-accent text-[10px] uppercase tracking-widest text-secondary mb-3">Каалоо-тилектериңиз</label>
-<textarea class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 resize-none transition-colors" placeholder="Сиздин билдирүүңүз..." rows="3"></textarea>
+<textarea class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-secondary py-3 text-base placeholder:text-white/20 resize-none transition-colors" name="message" placeholder="Сиздин билдирүүңүз..." rows="3"></textarea>
 </div>
 <button class="w-full py-5 mt-8 bg-secondary text-white rounded-full font-accent text-xs tracking-[0.3em] uppercase font-bold shadow-2xl active:scale-95 transition-all hover:bg-white hover:text-primary" type="submit">
                     Жөнөтүү
@@ -437,9 +437,37 @@
     });
 
     // Special case for RSVP form submit
-    document.getElementById('rsvpForm').onsubmit = function(event) {
+    const rsvpForm = document.getElementById('rsvpForm');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzApP03up8mYqaqS2sI3XbC4S0eo7Bk2_fEU-Xr_NV0omOMfugwLUhC5-mmJSDbMQcC/exec';
+
+    rsvpForm.addEventListener('submit', function(event) {
         event.preventDefault();
-        alert('Ыракмат! Сиздин катышууңуз катталды.');
-    };
+        const formData = new FormData(rsvpForm);
+        const payload = {
+            name: formData.get('name'),
+            attend: formData.get('attending'),
+            count: formData.get('guests'),
+            wish: formData.get('message')
+        };
+        const submitBtn = rsvpForm.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+
+        fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
+            .then(response => response.json())
+            .then(() => {
+                alert('Ыракмат! Сиздин катышууңуз катталды.');
+                rsvpForm.reset();
+            })
+            .catch((error) => {
+                console.error('RSVP error:', error);
+                alert('Ката кетти, кайра аракет кылып көрүңүз.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+            });
+    });
 </script>
 </body></html>
