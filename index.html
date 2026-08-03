@@ -289,7 +289,7 @@
 <div class="text-center mb-16">
 <h3 class="font-calligraphy text-5xl mb-4">Катышууну ырастоо</h3>
 <div class="w-16 h-px bg-secondary mx-auto mb-4"></div>
-<p class="font-accent text-[11px] uppercase tracking-[0.3em] text-secondary">2026-жылдын 1-августуна чейин</p>
+<p class="font-accent text-[11px] uppercase tracking-[0.3em] text-secondary">2026-жылдын 20-августуна чейин</p>
 </div>
 <form class="space-y-10" id="rsvpForm">
 <div class="relative">
@@ -315,6 +315,13 @@
                     Жөнөтүү
                 </button>
 </form>
+<div class="hidden text-center" id="rsvpDone">
+<p class="font-accent text-[11px] uppercase tracking-widest text-secondary mb-3">Рахмат!</p>
+<p class="text-base mb-8" id="rsvpDoneText">Сиз мурда жооп жибергенсиз.</p>
+<button class="font-accent text-[10px] uppercase tracking-widest underline text-white/70 hover:text-white" id="rsvpEditBtn" type="button">
+                    Жоопту өзгөртүү
+                </button>
+</div>
 </div>
 </section>
 <!-- Closing Section -->
@@ -431,8 +438,35 @@
 
     // Special case for RSVP form submit
     const rsvpForm = document.getElementById('rsvpForm');
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzApP03up8mYqaqS2sI3XbC4S0eo7Bk2_fEU-Xr_NV0omOMfugwLUhC5-mmJSDbMQcC/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx0YaDGDP8GLkgxS_ALsQzwq9SaiKjwK0YtvjD3um-Q7QSaxVYDYpS_tOALVy7NokBm/exec';
     const whatsappNumber = '996702855508';
+
+    const rsvpDone = document.getElementById('rsvpDone');
+    const rsvpDoneText = document.getElementById('rsvpDoneText');
+    const rsvpEditBtn = document.getElementById('rsvpEditBtn');
+
+    function showRsvpDone(payload) {
+        rsvpForm.classList.add('hidden');
+        rsvpDone.classList.remove('hidden');
+        if (payload) {
+            rsvpDoneText.innerText = `Сиз мурда жооп жибергенсиз: ${payload.name}, ${payload.attend}.`;
+        }
+    }
+
+    // Гость уже отправлял ответ с этого устройства/браузера раньше
+    const savedRsvp = localStorage.getItem('rsvpSubmitted');
+    if (savedRsvp) {
+        try {
+            showRsvpDone(JSON.parse(savedRsvp));
+        } catch (e) {
+            showRsvpDone(null);
+        }
+    }
+
+    rsvpEditBtn.addEventListener('click', function() {
+        rsvpDone.classList.add('hidden');
+        rsvpForm.classList.remove('hidden');
+    });
 
     rsvpForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -467,8 +501,10 @@
                     `Каалоо: ${payload.wish || '-'}`;
                 const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(waText)}`;
 
+                localStorage.setItem('rsvpSubmitted', JSON.stringify(payload));
                 rsvpForm.reset();
                 submitBtn.innerText = 'Жөнөтүлдү ✓';
+                showRsvpDone(payload);
                 if (waWindow) {
                     waWindow.location.href = waLink;
                 } else {
